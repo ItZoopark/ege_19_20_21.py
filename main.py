@@ -89,3 +89,39 @@
 #     if a[8][i] == -2:
 #       print(i, end=' ')
 # print()
+
+def f(num, turns, winner, max_n):
+    a = [0] * num * max_n
+    for i in range(len(a)):
+        if 2 * i >= num:
+            a[i] = 1
+        else:
+            a[i] = 0
+    while 0 in a:
+        for i in range(len(a)):
+            if a[i] == 0:
+                if eval(' and '.join([x + '>0' for x in turns])):
+                    a[i] = max(eval(', '.join(turns))) * (-1)
+                elif eval(' or '.join([x + '<0' for x in turns])):
+                    a[i] = abs(min(eval(', '.join(turns)))) + 1
+    print(a)
+    for i in range(len(a)):
+        if a[i] == winner:
+            print(i, end=' ')
+
+
+print('Введите ходы через пробел')
+turns = input().split()
+max_n = max([int(x[1:]) for x in turns if x[0] == "*"])
+for k in range(len(turns)):
+    turns[k] = 'a[i' + turns[k] + ']'
+print('Введите необходимое кол-во камней')
+num = int(input())
+print('Введите победный ход')
+win = int(input())
+print('Чей ход')
+if input() == "Вани":
+    win *= -1
+f(num, turns, win, max_n)
+
+
